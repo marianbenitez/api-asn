@@ -34,6 +34,9 @@ class Filters extends BaseFilters
         'forcehttps'    => ForceHTTPS::class,
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
+        'session'       => \CodeIgniter\Shield\Filters\SessionAuth::class,
+        'tokens'        => \CodeIgniter\Shield\Filters\TokenAuth::class,
+        'auth-token'    => \CodeIgniter\Shield\Filters\TokenAuth::class,
     ];
 
     /**
@@ -72,6 +75,7 @@ class Filters extends BaseFilters
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
+            'session', // Shield must have session filter
         ],
         'after' => [
             // 'honeypot',
@@ -103,5 +107,11 @@ class Filters extends BaseFilters
      *
      * @var array<string, array<string, list<string>>>
      */
-    public array $filters = [];
+    public array $filters = [
+        'tokens' => [
+            'before' => [
+                'api/*',
+            ],
+        ],
+    ];
 }
